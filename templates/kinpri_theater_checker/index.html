@@ -1,0 +1,109 @@
+{% extends 'kinpri_theater_checker/base.html' %}
+{% load staticfiles %}
+{% block body %}
+<div class="container">
+    <h1>👑キンプリ上映スケジュールリスト🌹</h1>
+
+    <p>
+        『KING OF PRISM -PRIDE the HERO-』の上映スケジュールを自動的にまとめて表示するサービスです。キンプラの鑑賞計画を立てる時などに活用してください。
+    </p>
+
+    <ul>
+        現在対応している劇場
+        <li>Tジョイ・バルト系列</li>
+    </ul>
+
+    <p>
+        日付をクリックすると、上映リストのページにジャンプできます。
+    </p>
+
+    <div class="tweet-btn">
+        <a href="https://twitter.com/share" class="twitter-share-button" data-size="large">このページをツイートする</a>
+    </div>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+    <p>
+        最終更新日時: {{ last_updated }}
+    </p>
+
+    <p>
+        凡例:
+        <span class="movie-type cheering">アイドルおうえん上映</span>
+        / <span class="movie-type">通常上映</span>
+        / <span class="movie-type special">特別な上映 (舞台挨拶など)</span>
+        / ✨🌈✨ 準備中 (ちょっと待ってね)
+    </p>
+
+    <!-- スケジュールリスト -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th>都道府県</th>
+                <th>劇場名</th>
+                {% for day in days %}
+                <th>{{ day|date:"n月j日(D)" }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for theater, shows_list in theater_shows %}
+            <tr>
+                <td>{{ theater.pref }}</td>
+                <td><a href="{{ theater.link }}" target="_blank">{{ theater.name }}</a></td>
+                {% for shows in shows_list %}
+                <td class="show">
+                    {% if not shows %}
+                    ✨🌈✨
+                    {% endif %}
+                    {% for show in shows %}
+                    <div class="movie-type {{ show.movie_types|join:' '}}">
+                        <span class="state">
+                            {% if show.ticket_state == 0 %}
+                            -
+                            {% elif show.ticket_state == 1 %}
+                            ×
+                            {% elif show.ticket_state == 2 %}
+                            △
+                            {% elif show.ticket_state == 3 %}
+                            ○
+                            {% elif show.ticket_state == 4 %}
+                            ◎
+                            {% endif %}
+                        </span>
+                        <a href="{{ show.schedule_url }}" target="_blank">
+                            {{ show.start_time }}
+                        </a>
+                        <span class="seats_num">
+                            <small>
+                                ({{ show.remaining_seats_num }}
+                                / {{ show.total_seats_num|default_if_none:" - " }})
+                            </small>
+                        </span>
+                    </div>
+                    {% endfor %}
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <footer>
+        <hr>
+        <p>
+            このサービスのソースコードは、
+            <i class="fa fa-github"></i>
+            <a href="https://github.com/sakuramochi0/kinpri-theater-checker">
+                GitHub
+            </a>で公開しています。
+        </p>
+        
+        <p>作者:
+            <a href="https://twitter.com/skrmch_rhythpri">
+                <i class="fa fa-twitter"></i>
+                さくらもち (@skrmch_rhythpri)
+            </a>
+        </p>
+    </footer>
+</div>
+{% endblock %}
