@@ -22,6 +22,9 @@
          h1 {
              margin: 1em;
          }
+         .table th {
+             text-align: center;
+         }
          .table td.show {
              text-align: center;
              padding: 0.25em;
@@ -31,11 +34,14 @@
              padding: 0.25em;
              margin: 0.25em;
          }
-         .movie-type.cheering {
-             background-color: lightpink;
-         }
          .movie-type.special {
              background-color: gold;
+         }
+         .movie-type.kinpri1 {
+             background-color: lightgreen;
+         }
+         .movie-type.cheering:not(.special):not(.kinpri1) {
+             background-color: lightpink;
          }
         </style>
     </head>

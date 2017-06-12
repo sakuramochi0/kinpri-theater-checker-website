@@ -5,12 +5,19 @@
     <h1>👑キンプリ上映スケジュールリスト🌹</h1>
 
     <p>
-        『KING OF PRISM -PRIDE the HERO-』の上映スケジュールを自動的にまとめて表示するサービスです。キンプラの鑑賞計画を立てる時などに活用してください。
+        『KING OF PRISM -PRIDE the HERO-』の上映スケジュールを自動的にまとめて表示するサービスです。キンプラの鑑賞計画を立てる時などに活用してください。間違いなどを見つけたら、<a href="https://twitter.com/skrmch_rhythpri"><i class="fa fa-twitter"></i>さくらもち (@skrmch_rhythpri)</a> までお知らせください。
     </p>
 
     <ul>
-        現在対応している劇場
-        <li>Tジョイ・バルト系列</li>
+        <li>現在対応している劇場</li>
+        <ul>
+            <li>Tジョイ・バルト系列</li>
+            <li>イオンシネマ (2017年6月11日: 当日分のみ対応しました！)</li>
+        </ul>
+        <li>追加作業中の劇場</li>
+        <ul>
+            <li>ユナイテッドシネマ/シネプレックス系列</li>
+        </ul>
     </ul>
 
     <p>
@@ -31,6 +38,7 @@
         <span class="movie-type cheering">アイドルおうえん上映</span>
         / <span class="movie-type">通常上映</span>
         / <span class="movie-type special">特別な上映 (舞台挨拶など)</span>
+        / <span class="movie-type kinpri1">前作 by PrettyRhythm</span>
         / ✨🌈✨ 準備中 (ちょっと待ってね)
     </p>
 
@@ -49,14 +57,20 @@
             {% for theater, shows_list in theater_shows %}
             <tr>
                 <td>{{ theater.pref }}</td>
-                <td><a href="{{ theater.link }}" target="_blank">{{ theater.name }}</a></td>
+                <td><a href="{{ theater.link }}" target="_blank">
+                    {{ theater.name }}
+                    {% if not theater.start_date|date:"n/j" == '6/10' %}
+                    ({{ theater.start_date|date:"n/j〜" }})
+                    {% endif %}
+                </a></td>
                 {% for shows in shows_list %}
                 <td class="show">
-                    {% if not shows %}
+                    {% if not shows.count %}
                     ✨🌈✨
                     {% endif %}
                     {% for show in shows %}
-                    <div class="movie-type {{ show.movie_types|join:' '}}">
+                    <div class="movie-type {{ show.movie_types|join:' '}}"
+                         title="{{ show.title }}">
                         <span class="state">
                             {% if show.ticket_state == 0 %}
                             -
@@ -74,10 +88,12 @@
                             {{ show.start_time }}
                         </a>
                         <span class="seats_num">
+                            {% if show.remaining_seats_num %}
                             <small>
                                 ({{ show.remaining_seats_num }}
                                 / {{ show.total_seats_num|default_if_none:" - " }})
                             </small>
+                            {% endif %}
                         </span>
                     </div>
                     {% endfor %}
