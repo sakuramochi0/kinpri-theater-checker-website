@@ -8,31 +8,38 @@
         『KING OF PRISM -PRIDE the HERO-』の上映スケジュールを自動的にまとめて表示するサービスです。キンプラの鑑賞計画を立てる時などに活用してください。間違いなどを見つけたら、<a href="https://twitter.com/skrmch_rhythpri"><i class="fa fa-twitter"></i>さくらもち (@skrmch_rhythpri)</a> までお知らせください。
     </p>
 
-    <ul>
-        <li>現在対応している劇場</li>
-        <ul>
-            <li>Tジョイ・バルト系列</li>
-            <li>イオンシネマ (2017/06/11: 当日分のみ対応しました)</li>
-            <li>ユナイテッドシネマ・シネプレックス系列 (2017/06/13: 一部、座席数が正常に取得できていないので、あとで直します🔧 )</li>
-            <li>チネチッタ</li>
-        </ul>
-        <li>追加作業中の劇場</li>
-        <ul>
-            <li>MOVIX</li>
-        </ul>
-    </ul>
-
-    <p>
-        上映時刻をクリックすると、劇場の上映時間のページにジャンプできます。
-    </p>
-
     <div class="tweet-btn">
         <a href="https://twitter.com/share" class="twitter-share-button" data-size="large">このページをツイートする</a>
     </div>
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
+    <dl>
+        <dt>現在対応している劇場</dt>
+        <dd>
+            <ul>
+                <li>Tジョイ・バルト系列</li>
+                <li>イオンシネマ (2017/06/11: 当日分のみ対応しました)</li>
+                <li>ユナイテッドシネマ・シネプレックス系列 (2017/06/13: 一部、座席数が正常に取得できていないので、あとで直します🔧 )</li>
+                <li>川崎チネチッタ</li>
+                <li>MOVIX (2017/06/14: 当日分のみ対応しました)</li>
+            </ul>
+        </dd>
+        <dt>追加作業中の劇場</dt>
+        <dd>
+            <ul>
+                <li>MOVIX</li>
+            </ul>
+        </dd>
+        <dt>現在の対応劇場数:</dt>
+        <dd>{{ support_theater_num }} / {{ present_total_theater_num }} 館</dd>
+        <dt>キンプラの全上映館数:</dt>
+        <dd>{{ total_theater_num }} 館</dd>
+        <dt>最終更新日時:</dt>
+        <dd>{{ last_updated }}</dd>
+    </p>
+
     <p>
-        最終更新日時: {{ last_updated }}
+        上映時刻をクリックすると、劇場の上映時間のページにジャンプできます。
     </p>
 
     <p>
