@@ -34,6 +34,7 @@
         </dd>
         <dt>現在の対応劇場数:</dt>
         <dd>{{ support_theater_num }} / {{ present_total_theater_num }} 館</dd>
+        <div id="support-theaters-chart"></div>
         <dt>現在の上映館数 / 全上映館数:</dt>
         <dd>{{ present_total_theater_num }} / {{ total_theater_num }} 館</dd>
         <dt>最終更新日時:</dt>
@@ -138,4 +139,22 @@
         </p>
     </footer>
 </div>
+<script type="text/javascript">
+ google.charts.load('current', {packages: ['corechart']});
+ google.charts.setOnLoadCallback(drawChart);
+ function drawChart(){
+     let data = google.visualization.arrayToDataTable([
+         ['対応済み', {{ support_theater_num }} / {{ present_total_theater_num }}],
+         ['未対応', ({{ present_total_theater_num }} - {{ support_theater_num }}) / {{ present_total_theater_num }}],
+     ]);
+     let options = {
+         width: 600,
+         height: 400,
+         isStacked: true,
+     };
+     let chart = google.visualization.BarChart(
+         docuemnt.querySelector('#support-theaters-chart'));
+     char.draw(data, options);
+ }
+</script>
 {% endblock %}
